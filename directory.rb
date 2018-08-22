@@ -1,6 +1,6 @@
 puts "The students of Villains Academy"
 puts "-------------"
-puts "Dr.Hannibal Lecter"
+puts "Dr. Hannibal Lecter"
 puts "Darth Vader"
 puts "Nurse Ratched"
 puts "Michael Corleone"
@@ -11,3 +11,7 @@ puts "Freddy Krueger"
 puts "The Joker"
 puts "Joffrey Baratheon"
 puts "Norman Bates"
+# now we print the number of students we have
+print "Overall, we have "
+print 11
+puts " great students"
