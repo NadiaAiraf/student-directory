@@ -23,7 +23,8 @@ def print(names)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  a = " Overall, we have #{names.count} great students "
+  puts a.center(a.size+9,"~")
 end
 
 
