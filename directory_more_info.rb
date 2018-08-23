@@ -13,7 +13,6 @@ def input_students
     name = gets.chomp
     if name.empty?
       break
-    end
     puts "now enter their hobby"
     hobby = gets.chomp
     puts "now enter their country of birth"

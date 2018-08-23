@@ -5,10 +5,9 @@ def input_students
   
   while !name.empty? do
     cohort = new_student_cohort
-    puts "~~~~~~~~~~~~"
     students << {name: name.capitalize, cohort: cohort}
     puts "#{name.capitalize} has been entered, we now have #{students.count} student#{students.count == 1 ? "" : "s"}"
-    puts ""
+    puts "~~~~~~~~~~~~~~"
     name = new_student_name
   end
   students
@@ -19,15 +18,19 @@ def print_header
   puts "--------------"
 end
 
-def print(names)
-  names.each_with_index do |student,index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
-  end
-end
-
 def print_footer(names)
   a = " Overall, we have #{names.count} great students "
   puts a.center(a.size+9,"~")
+end
+
+def print(names)
+  cohorts = names.map{|x| x[:cohort]}.uniq
+  cohorts.each do |y|
+    puts y.capitalize + ' cohort:'
+    puts "-----"
+    names.each{|z| puts z[:name] if z[:cohort] == y}
+    puts ""
+  end
 end
 
 def new_student_cohort
@@ -54,15 +57,11 @@ def new_student_name
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   name = gets.chomp
-  puts ""
   name
 end
-
 
 students = input_students
 
 print_header
 print(students)
 print_footer(students)
-
-
