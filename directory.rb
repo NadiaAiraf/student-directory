@@ -4,8 +4,8 @@ def input_students
   students = []
   name = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: "november"}
-    puts "#{name} has been entered, we now have #{students.count} students"
+    students << {name: name.capitalize, cohort: "november"}
+    puts "#{name.capitalize} has been entered, we now have #{students.count} students"
     name = gets.chomp
   end
   students
@@ -17,8 +17,8 @@ def print_header
 end
 
 def print(names)
-  names.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  names.each_with_index do |student,index|
+    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
