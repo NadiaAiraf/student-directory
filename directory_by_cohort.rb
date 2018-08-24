@@ -1,16 +1,20 @@
-def input_students
+def interactive_menu
+  @students = []
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
+end
 
-  students = []
+def input_students
   name = new_student_name
-  
   while !name.empty? do
     cohort = new_student_cohort
-    students << {name: name.capitalize, cohort: cohort}
-    puts "#{name.capitalize} has been entered, we now have #{students.count} student#{students.count == 1 ? "" : "s"}"
+    @students << {name: name.capitalize, cohort: cohort}
+    puts "#{name.capitalize} has been entered, we now have #{@students.count} student#{@students.count == 1 ? "" : "s"}"
     puts "~~~~~~~~~~~~~~"
     name = new_student_name
   end
-  students
 end
 
 def print_header
@@ -18,17 +22,17 @@ def print_header
   puts "--------------"
 end
 
-def print_footer(names)
-  a = " Overall, we have #{names.count} great students "
+def print_footer
+  a = " Overall, we have #{@students.count} great student#{@students.count == 1? "" : "s"}"
   puts a.center(a.size+9,"~")
 end
 
-def print(names)
-  cohorts = names.map{|x| x[:cohort]}.uniq
+def print_student_list
+  cohorts = @students.map{|x| x[:cohort]}.uniq
   cohorts.each do |y|
     puts y.capitalize + ' cohort:'
     puts "-----"
-    names.each{|z| puts z[:name] if z[:cohort] == y}
+    @students.each{|z| puts z[:name] if z[:cohort] == y}
     puts ""
   end
 end
@@ -54,14 +58,30 @@ def new_student_cohort
 end
 
 def new_student_name
-  puts "Please enter the names of the students"
+  puts "Please enter the name of the student"
   puts "To finish, just hit return twice"
   name = gets.chomp
   name
 end
 
-students = input_students
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    print_header
+    print_student_list
+    print_footer
+  when "9"
+    exit
+  else
+    puts "I don't know what you meant, try again"
+  end
+end
 
-print_header
-print(students)
-print_footer(students)
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+interactive_menu
