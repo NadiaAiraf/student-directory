@@ -42,7 +42,7 @@ def new_student_cohort
   while true do
     puts "Now enter which cohort you're from, enter the first 3 letters from the month."
     puts "If you don't know your cohort, hit enter and we'll say you're january"
-    cohort = gets.chomp.downcase
+    cohort = STDIN.gets.chomp.downcase
     if cohort.empty?
       cohort = "jan"
       break
@@ -92,22 +92,26 @@ def print_menu
 end
 
 def save_students
-  file = File.open("students.csv","w")
-  @students.each do |student|
-    student_data = [student[:name],student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  puts "what filename would you like the list of students to be called?"
+  filename = STDIN.gets.chomp
+  File::open(filename,"w") do |file|
+    @students.each do |student|
+      student_data = [student[:name],student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
+    puts "Saved the current list of students to students.csv"
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename,"r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort}
+  File::open(filename,"r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      @students << {name: name, cohort: cohort}
+    end
+    puts "Loaded data from #{filename}"
   end
-  file.close
 end
 
 def try_load_students
