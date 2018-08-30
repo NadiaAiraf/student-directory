@@ -1,5 +1,6 @@
 def interactive_menu
   @students = []
+  load_students
   loop do
     print_menu
     process(STDIN.gets.chomp)
@@ -105,11 +106,9 @@ def save_students
 end
 
 def load_students(filename = "students.csv")
-  File::open(filename,"r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      @students << {name: name, cohort: cohort}
-    end
+  CSV.foreach(filename) do |line|
+    name, cohort = line.chomp.split(",")
+    @students << {name: name, cohort: cohort}
     puts "Loaded data from #{filename}"
   end
 end
